@@ -217,6 +217,44 @@ body::before {
 .dot.available { background: var(--available-bg); border: 1.5px solid var(--available-border); }
 .dot.busy      { background: var(--busy-bg);      border: 1.5px solid var(--busy-border);      }
 
+/* ── Language switcher ─────────────────────────────────────────── */
+
+.lang-switch {
+    position: absolute;
+    top: 14px;
+    right: 18px;
+    display: flex;
+    align-items: center;
+    gap: 1px;
+}
+
+.lang-divider {
+    color: #ddd;
+    font-size: 0.72rem;
+    pointer-events: none;
+}
+
+.lang-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px 7px;
+    border-radius: 5px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: #bbb;
+    transition: background 0.15s, color 0.15s;
+    font-family: inherit;
+}
+
+.lang-btn:hover  { color: #555; }
+
+.lang-btn.active {
+    background: rgba(0, 0, 0, 0.07);
+    color: #222;
+}
+
 /* ── Notice banner (config / error states) ─────────────────────── */
 
 .notice {
