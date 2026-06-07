@@ -20,10 +20,10 @@ jobs:
         run: |
           python3 - <<'EOF'
           import os, json
-          with open('config.php', 'w') as f:
+          with open('config.php', 'w', encoding='utf-8') as f:
               f.write("<?php\n")
-              f.write(f"define('CALENDAR_ICS_URL', {json.dumps(os.environ['CALENDAR_ICS_URL'])});\n")
-              f.write(f"define('FAMILY_NAME',      {json.dumps(os.environ['FAMILY_NAME'])});\n")
+              f.write(f"define('CALENDAR_ICS_URL', {json.dumps(os.environ['CALENDAR_ICS_URL'], ensure_ascii=False)});\n")
+              f.write(f"define('FAMILY_NAME',      {json.dumps(os.environ['FAMILY_NAME'], ensure_ascii=False)});\n")
               f.write("define('CACHE_DURATION', 3600);\n")
           EOF
 

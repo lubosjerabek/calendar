@@ -95,6 +95,9 @@ $configured = CALENDAR_ICS_URL !== 'YOUR_GOOGLE_CALENDAR_ICS_URL_HERE';
 
         let html = '';
 
+        // Always 6 rows × 7 cols = 42 cells so the card height never shifts
+        const TOTAL_CELLS = 42;
+
         // Empty leading cells
         for (let i = 0; i < offset; i++) {
             html += '<div class="day" role="gridcell" aria-hidden="true"></div>';
@@ -123,6 +126,13 @@ $configured = CALENDAR_ICS_URL !== 'YOUR_GOOGLE_CALENDAR_ICS_URL_HERE';
             }
 
             html += `<div class="${cls}" role="gridcell">${label}</div>`;
+        }
+
+        // Trailing empty cells to complete the 6-row grid
+        const filled  = offset + daysInMonth;
+        const trailing = TOTAL_CELLS - filled;
+        for (let i = 0; i < trailing; i++) {
+            html += '<div class="day" role="gridcell" aria-hidden="true"></div>';
         }
 
         document.getElementById('days').innerHTML = html;
