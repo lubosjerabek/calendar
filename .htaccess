@@ -1,0 +1,11 @@
+# Prevent direct HTTP access to config file
+<Files "config.php">
+    Order Allow,Deny
+    Deny from all
+</Files>
+
+# Optional: remove .php extension from URLs
+# Uncomment if your host supports mod_rewrite:
+# RewriteEngine On
+# RewriteCond %{REQUEST_FILENAME} !-f
+# RewriteRule ^([^.]+)$ $1.php [NC,L]

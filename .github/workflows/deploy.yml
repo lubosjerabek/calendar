@@ -1,0 +1,46 @@
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: # allow manual trigger from GitHub UI
+
+jobs:
+  deploy:
+    name: FTP Deploy
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Generate config.php from secrets
+        env:
+          CALENDAR_ICS_URL: ${{ secrets.CALENDAR_ICS_URL }}
+          FAMILY_NAME:      ${{ secrets.FAMILY_NAME }}
+        run: |
+          python3 - <<'EOF'
+          import os, json
+          with open('config.php', 'w') as f:
+              f.write("<?php\n")
+              f.write(f"define('CALENDAR_ICS_URL', {json.dumps(os.environ['CALENDAR_ICS_URL'])});\n")
+              f.write(f"define('FAMILY_NAME',      {json.dumps(os.environ['FAMILY_NAME'])});\n")
+              f.write("define('CACHE_DURATION', 3600);\n")
+          EOF
+
+      - name: Upload to hosting via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server:     ${{ secrets.FTP_HOST }}
+          username:   ${{ secrets.FTP_USER }}
+          password:   ${{ secrets.FTP_PASS }}
+          # Absolute path on the server, must end with /
+          # e.g. /public_html/calendar/ or /www/calendar/
+          server-dir: ${{ secrets.FTP_SERVER_DIR }}
+          # Use ftps (FTP over TLS) — supported by most shared hosts.
+          # Change to ftp if your host doesn't support it.
+          protocol: ftps
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/.github/**
+            **/README.md

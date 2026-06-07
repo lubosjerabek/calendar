@@ -1,0 +1,5 @@
+# FTP deploy state (written by the deploy action on the server, not local)
+.ftp-deploy-sync-state.json
+
+# macOS
+.DS_Store
