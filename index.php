@@ -9,6 +9,7 @@ $configured = CALENDAR_ICS_URL !== 'YOUR_GOOGLE_CALENDAR_ICS_URL_HERE';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= $familyName ?></title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
